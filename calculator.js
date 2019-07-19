@@ -1,4 +1,6 @@
-var operators = ["-","+","/","*"];
+var operators = ["-","+","÷","X"];
+var gobalAns=0;
+var isDone=false;
 
 function calculate(postfixExpression){
 	var stack =[];
@@ -17,10 +19,10 @@ function calculate(postfixExpression){
 			else if (postfixExpression.charAt(i) == '-'){
 				ans = a-b;
 			}
-			else if (postfixExpression.charAt(i) == '*'){
+			else if (postfixExpression.charAt(i) == 'X'){
 				ans = a*b;
 			}
-			else if (postfixExpression.charAt(i) == '/'){
+			else if (postfixExpression.charAt(i) == '÷'){
 				ans = a/b;
 			}
 			
@@ -29,20 +31,21 @@ function calculate(postfixExpression){
 		
 	}
 	var answer = stack.pop();
-	document.getElementById("answer").innerHTML = "Answer: "+answer;
-	
+	globalAns=answer;
+	document.getElementById("textfield").value=answer;
+	isDone=true;	
 }
 
 function infixToPostfix(){
-	var infixExpression = document.getElementById("postfix").value;
+	var infixExpression = document.getElementById("textfield").value;
 
 	var start = 0;
 	var stack=[];
 	var precedence ={
 		"+":1,
 		"-":1,
-		"*":2,
-		"/":2
+		"X":2,
+		"÷":2
 		
 	};
 	var postfixExpression ="";
@@ -71,5 +74,42 @@ function infixToPostfix(){
 	}
 	calculate(postfixExpression);
 	
+	
+}
+
+function buttonPress(buttonID){
+	var textfield = document.getElementById("textfield");
+	if(!isDone){
+	
+		var text = textfield.value;
+		text+=buttonID
+		textfield.value = text;
+	}
+	else{
+		textfield.value = globalAns+buttonID;
+		isDone=false;
+	}
+}
+
+function del(){
+	var textfield = document.getElementById("textfield");
+	var text = textfield.value;
+	text=text.substring(0,text.length-1);
+	textfield.value =text;
+
+
+}
+
+function ac(){
+	var textfield = document.getElementById("textfield");
+	textfield.value="";
+	isDone=false;
+	
+}
+
+function ansFunction(){
+	var textfield = document.getElementById("textfield");
+	var text = textfield.value;
+	textfield.value = text+globalAns;
 	
 }
