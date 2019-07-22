@@ -4,9 +4,9 @@
 <h1>BEDMAS Calculator</h1>
 <body>
 	<script src="calculator.js"></script>
-	<p>* code translated from python</p>
+	<p>* press alt or AC to clear</p>
 	<br>
-	<input type="text" id="textfield">
+	<input type="text" id="textfield" onkeydown="onKeyDown(event)">
 	<br>
 	<button type="button" id="7" onclick="buttonPress(this.id)">7</button>
 	<button type="button" id="8" onclick="buttonPress(this.id)">8</button>

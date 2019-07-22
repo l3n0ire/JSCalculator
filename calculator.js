@@ -1,4 +1,4 @@
-var operators = ["-","+","÷","X"];
+var operators = ["-","+","÷","X","*",'/'];
 var gobalAns=0;
 var isDone=false;
 
@@ -19,10 +19,10 @@ function calculate(postfixExpression){
 			else if (postfixExpression[i] == '-'){
 				ans = a-b;
 			}
-			else if (postfixExpression[i] == 'X'){
+			else if (postfixExpression[i] == 'X' || postfixExpression[i] == '*'){
 				ans = a*b;
 			}
-			else if (postfixExpression[i] == '÷'){
+			else if (postfixExpression[i] == '÷' || postfixExpression[i] == '/' ){
 				ans = a/b;
 			}
 			
@@ -46,7 +46,10 @@ function infixToPostfix(){
 		"+":1,
 		"-":1,
 		"X":2,
-		"÷":2
+		"÷":2,
+		"*":2,
+		"/":2
+		
 		
 	};
 	var postfixExpression =[];
@@ -113,4 +116,17 @@ function ansFunction(){
 	var text = textfield.value;
 	textfield.value = text+globalAns;
 	
+}
+
+function onKeyDown(event){
+	var key = event.keyCode;
+	// enter key
+	if(key==13){
+		infixToPostfix();
+	}
+	// alt key
+	else if(key==18){
+		ac();
+	}
+		
 }
