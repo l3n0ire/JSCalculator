@@ -6,23 +6,23 @@ function calculate(postfixExpression){
 	var stack =[];
 	var ans =0;
 	for (var i=0;i<postfixExpression.length;i++){
-		if(!operators.includes(postfixExpression.charAt(i)))
+		if(!operators.includes(postfixExpression[i]))
 		{
-			stack.push(parseInt(postfixExpression.charAt(i)));
+			stack.push(parseInt(postfixExpression[i]));
 		}
 		else{
 			var b = stack.pop();
 			var a = stack.pop();
-			if (postfixExpression.charAt(i) == '+'){
+			if (postfixExpression[i] == '+'){
 				ans = a+b;
 			}
-			else if (postfixExpression.charAt(i) == '-'){
+			else if (postfixExpression[i] == '-'){
 				ans = a-b;
 			}
-			else if (postfixExpression.charAt(i) == 'X'){
+			else if (postfixExpression[i] == 'X'){
 				ans = a*b;
 			}
-			else if (postfixExpression.charAt(i) == '÷'){
+			else if (postfixExpression[i] == '÷'){
 				ans = a/b;
 			}
 			
@@ -37,7 +37,8 @@ function calculate(postfixExpression){
 }
 
 function infixToPostfix(){
-	var infixExpression = document.getElementById("textfield").value;
+	var infixExpression = "";
+	infixExpression = document.getElementById("textfield").value;
 
 	var start = 0;
 	var stack=[];
@@ -48,17 +49,17 @@ function infixToPostfix(){
 		"÷":2
 		
 	};
-	var postfixExpression ="";
+	var postfixExpression =[];
 	for (var i=0;i<infixExpression.length;i++){
 		if(operators.includes(infixExpression.charAt(i))){
-			postfixExpression+=infixExpression.substring(start,i);
+			postfixExpression.push(infixExpression.substring(start,i));
 			start = i+1;
 			if(stack.length==0){
 				stack.push(infixExpression.charAt(i));
 			}
 			else{
 				while (stack.length>0 && precedence[infixExpression.charAt(i)] <= precedence[stack[stack.length-1]]){
-					postfixExpression += stack.pop();
+					postfixExpression.push(stack.pop());
 					
 				}
 				stack.push(infixExpression.charAt(i));
@@ -66,10 +67,10 @@ function infixToPostfix(){
 				
 		}
 	}
-	postfixExpression += infixExpression.substring(start,infixExpression.length);
+	postfixExpression.push(infixExpression.substring(start,infixExpression.length));
 	
 	while(stack.length>0){
-		postfixExpression += stack.pop();
+		postfixExpression.push(stack.pop());
 		
 	}
 	calculate(postfixExpression);
