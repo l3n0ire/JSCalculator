@@ -130,3 +130,6 @@ function onKeyDown(event){
 	}
 		
 }
+(function(){
+	document.getElementById("textfield").focus();
+}());
